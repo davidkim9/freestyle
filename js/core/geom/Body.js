@@ -3,18 +3,23 @@
  */
 var method = Body.prototype;
 
-function Body(){}
+function Body() {}
 
 /**
  * getPoint()
  * This method should return this body's location by point
  */
-method.getPoint = function(){}
+method.getPoint = function () {};
 
 /**
  * getBounds()
  * This method should return this body's outer square boundary
  */
-method.getBounds = function(){}
+method.getBounds = function () {};
+
+/**
+ * getBoundPoints()
+ */
+method.getBoundPoints = function () {};
 
 module.exports = Body;

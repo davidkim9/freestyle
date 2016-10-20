@@ -1,4 +1,4 @@
-module.exports = {
-  width: 800,
-  height: 600,
-}
+global.showFPS = true;
+global.width = 800;//window.innerWidth;
+global.height = 600;//window.innerHeight;
+global.renderPadding = 0;

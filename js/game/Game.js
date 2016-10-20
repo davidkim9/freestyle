@@ -1,43 +1,59 @@
-var config = require("../config");
+var Controller = require('./Controller');
+
+var Demo = require('./demo/Demo');
+var World = require('./world/World');
 
 /**
  * Game Class
  */
+
+function Game(stage, loader) {
+  //Called when core is ready
+  this.stage = stage;
+  this.loader = loader;
+
+  this.active = false;
+
+  this.scenes = {
+    "start": new Demo()
+  };
+
+  this.currentScene = null;
+
+  this.controller = new Controller();
+  
+  this.startGame();
+}
+
 var method = Game.prototype;
 
-function Game(context){
-  this.context = context;
-  this.gameState = {};
-  this.loader = new Loader();
+method.showScene = function(k) {
+  if(this.currentScene){
+    this.stage.removeChild(this.currentScene.getSprite());
+  }
+  var scene = this.scenes[k];
+  this.currentScene = scene;
+  this.stage.addChild(scene.getSprite());
 }
 
-method.init = function(){
-  // Set game starting states
+method.isActive = function () {
+  return this.active;
 }
 
-method.unload = function(){
-  // Unload the game
-}
+method.startGame = function () {
+  console.log("Start Game");
+  //Initialize Game
+  this.showScene("start");
+  this.active = true;
+};
 
-method.gameStep = function(dt){
-  //Process game logic
-}
-
-method.render = function(dt) {
-  var context = this.context;
-
-  context.beginPath();
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
-  //Render logic
-
-  context.stroke();
-  context.closePath();
-}
-
-method.update = function(dt){
-  this.gameStep(dt);
-  this.render(dt);
-}
+method.update = function (dt) {
+  if(this.active){
+    if(this.controlsActive)
+      this.controller.update(dt);
+    if(this.currentScene)
+      this.currentScene.update(dt);
+  }
+};
 
 module.exports = Game;

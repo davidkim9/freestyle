@@ -1,0 +1,4 @@
+module.exports = {
+  "placeholderTile": "images/placeholderTile.png",
+  "grassTile": "images/grassTile.png",
+}

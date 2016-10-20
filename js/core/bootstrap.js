@@ -1,22 +1,29 @@
-var config = require("./config");
-var Game = require("./game/Game");
+var config = require('../config');
+var Core = require('./Core');
 
 var instance;
 var time = 0;
 var unloaded = false;
 var intervalTimer;
 
+var main;
+
 //Init
-function init(){
+function init(main) {
   //Grab canvas object
-  var canvas = document.getElementById("canvas");
-  var context = canvas.getContext("2d");
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
   context.imageSmoothingEnabled = true;
 
-  canvas.width = config.width;
-  canvas.height = config.height;
+  canvas.width = global.width;
+  canvas.height = global.height;
 
-  instance = new Game(context);
+  window.addEventListener('resize', function () {
+    canvas.width = global.width;
+    canvas.height = global.height;
+  });
+
+  instance = new Core(context, main);
   instance.init();
 }
 
@@ -38,32 +45,37 @@ function update() {
 /**
  * IE9 Polyfill
  */
-function unload(){
+function unload() {
   //Kill timers and animationframe
   unloaded = true;
-  if(intervalTimer){
+  if (intervalTimer) {
     clearInterval(intervalTimer);
     instance.unload();
   }
 }
 
-function animate(){
-  if(unloaded) {
+function animate() {
+  if (unloaded) {
     instance.unload();
     return;
   }
+
   update();
   requestAnimationFrame(animate);
 }
 
-function startLoop(){
+function startLoop() {
   unloaded = false;
-  if(window.requestAnimationFrame){
+  if (window.requestAnimationFrame) {
     requestAnimationFrame(animate);
-  }else{
+  }else {
     intervalTimer = setInterval(update, 16);
   }
 }
 
-init();
-startLoop();
+module.exports = {
+  init: function (main) {
+    init(main);
+    startLoop();
+  },
+};
