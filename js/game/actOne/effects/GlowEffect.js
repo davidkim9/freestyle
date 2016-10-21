@@ -1,6 +1,6 @@
 var util = require('util');
 var Effect = require('./Effect');
-var core = require('../../core');
+var core = require('../../../core');
 var Point = core.geom.Point;
 var Circle = core.geom.Circle;
 var ShapeSprite = core.graphics.ShapeSprite;
@@ -14,7 +14,7 @@ function GlowEffect() {
   GlowEffect.super_.apply(this, arguments);
   this.particles = [];
   var maxSpeed = 5;
-  for(var i = 0; i < 20; i++){
+  for(var i = 0; i < 5; i++){
     var shape = new ShapeSprite(new Circle(new Point(0, 0), 10), null, "#fff", 0);
     this.particles.push({
       sprite: shape,

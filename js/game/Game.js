@@ -1,7 +1,7 @@
 var Controller = require('./Controller');
 
 var Demo = require('./demo/Demo');
-var World = require('./world/World');
+var ActOne = require('./actOne/ActOne');
 
 /**
  * Game Class
@@ -15,7 +15,7 @@ function Game(stage, loader) {
   this.active = false;
 
   this.scenes = {
-    "start": new Demo()
+    "start": new ActOne(this, loader)
   };
 
   this.currentScene = null;

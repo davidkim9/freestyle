@@ -12,6 +12,10 @@ var TileSheetSprite = core.graphics.TileSheetSprite;
  */
 var method = World.prototype;
 
+World.BACKDROP = 0;
+World.TILES = 1;
+World.EFFECTS_OVER = 2;
+
 function World(game, loader) {
   this.game = game;
   this.loader = loader;
@@ -31,16 +35,31 @@ function World(game, loader) {
     this.container.addChild(this.layers[i]);
   }
 
-  // var args = {
-  //   spriteWidth: 50,
-  //   spriteHeight: 50,
-  //   tiles: grass,
-  //   tileWidth: this.tileWidth,
-  //   tileHeight: this.tileHeight,
-  // };
+  var tileData = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ];
 
-  // var tileContainer = new TileSheetSprite(this.loader.get('grassTile'), args);
-  // this.layers[World.FLOOR].addChild(tileContainer);
+  var args = {
+    spriteWidth: 50,
+    spriteHeight: 50,
+    tiles: tileData,
+    tileWidth: this.tileWidth,
+    tileHeight: this.tileHeight,
+  };
+
+  var tileContainer = new TileSheetSprite(this.loader.get('grassTile'), args);
+  this.layers[World.TILES].addChild(tileContainer);
 
   this.effects = [];
 }
